@@ -1,10 +1,12 @@
 //components start with a Capital Letter
-function Application(){
+//passing in 'props' lets us use whatever is passed in as an argument later on as an expression
+function Application(props){
   return (
          //react doesnt use 'class' but 'className' -> class is reserved in JS for making new classes
     <div className="scoreboard">
       <div className="header">
-        <h1>Scoreboard</h1>
+          {/* whatevr is passed as "title="whatever"" where application is called will show up here */}
+        <h1>{props.title}</h1>
       </div>
 
       <div className="players">
@@ -45,7 +47,7 @@ function Application(){
 }
 
 
-ReactDOM.render(<Application />, document.getElementById('container'));
+ReactDOM.render(<Application title="My Scoreboard"/>, document.getElementById('container'));
 
 
 
