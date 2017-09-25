@@ -1,9 +1,45 @@
 //components start with a Capital Letter
 function Application(){
   return (
-    <div>
-      <h1>Hello From React</h1>
-      <p>I was Rendered from the Application Component </p>
+         //react doesnt use 'class' but 'className' -> class is reserved in JS for making new classes
+    <div className="scoreboard">
+      <div className="header">
+        <h1>Scoreboard</h1>
+      </div>
+
+      <div className="players">
+        <div className="player">Chaz Henricks</div>
+        <div className="player-score">
+          <div className="counter">
+            <button className="counter-action decrement">-</button>
+            <div className="counter-score"> 100 </div>
+            <button className="counter-action increment">+</button>          
+          </div>
+        </div>
+      </div>
+
+      <div className="players">
+        <div className="player">Eliza Meeks</div>
+        <div className="player-score">
+          <div className="counter">
+            <button className="counter-action decrement">-</button>
+            <div className="counter-score"> 100 </div>
+            <button className="counter-action increment">+</button>          
+          </div>
+        </div>
+      </div>
+
+      <div className="players">
+        <div className="player">Matt Augsburger</div>
+        <div className="player-score">
+          <div className="counter">
+            <button className="counter-action decrement">-</button>
+            <div className="counter-score"> 100 </div>
+            <button className="counter-action increment">+</button>          
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 }
