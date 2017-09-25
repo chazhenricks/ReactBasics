@@ -35,57 +35,31 @@ Header.defaultProps = {
   title: "Scoreboard"
 }
 
-var Counter = React.createClass({
-  //When using component class - easier to define propTypes inside the class itself
-  propTypes: {
-    initialScore: React.PropTypes.number.isRequired,
-  },
 
-  getInitialState: function(){
-    return{
-      score: this.props.initialScore,
-    }
-  },
-
-  //new method to be called on onClick
-  incrementScore: function(){
-    //sets state to object below
-    this.setState({
-      //new score equals current score + 1
-      //setState initializes a new render
-      score: (this.state.score) + 1,
-    })
-  },
-
-  decrementScore: function(){
-    this.setState({
-      score: (this.state.score) - 1,
-    })
-  },
-
-  render: function(){
-    return(
+function Counter(props){
+  return(
       <div className="counter">
-        <button className="counter-action decrement" onClick={this.decrementScore}>-</button>
+        <button className="counter-action decrement">-</button>
         {/*When inside a compoent class - props is a method of the component class
         because of this, we need to use this.props to indicate that we are using props that are assign to 
         this specific component class*/}
-        <div className="counter-score"> {this.state.score} </div>
+        <div className="counter-score"> {props.score} </div>
         {/*onCLick method calls incrementScore method that is contained inside this class*/}
-        <button className="counter-action increment" onClick={this.incrementScore}>+</button>          
+        <button className="counter-action increment">+</button>          
       </div>
-    );
-  }
-});
+  );
+}
 
-
+Counter.propTypes = {
+  score: React.PropTypes.number.isRequired,
+}
 
 function Player(props){
   return (
     <div className="player">
       <div className="player-name">{props.name}</div>
       <div className="player-score">
-        <Counter />
+        <Counter score={props.score}/>
       </div>
   </div>
   );
@@ -97,43 +71,51 @@ Player.propTypes = {
 }
 
 
+var Application = React.createClass({
+  //propTypes let you strongly type properties that can apply to a component. Will show an error in the console.
+  //Acts as an error handling 
+  //should fill out for each component
+  propTypes: {
+    title: React.PropTypes.string,
+    initialPlayers: React.PropTypes.arrayOf(React.PropTypes.shape({
+      name: React.PropTypes.string.isRequired,
+      score: React.PropTypes.number.isRequired,
+      id: React.PropTypes.number.isRequired
+    })).isRequired,
+  },
 
 
-//passing in 'props' lets us use whatever is passed in as an argument later on as an expression
-function Application(props){
-  return (
-         //react doesnt use 'class' but 'className' -> class is reserved in JS for making new classes
-    <div className="scoreboard">
-      {/*Insearting extracted header component*/}
-      <Header title={props.title}/>
+  getDefaultProps: function(){
+    return {
+      title: "Scoreboard"
+    }
+  },
 
-      <div className="players">
-        {props.players.map(function(player){
-          return <Player name={player.name} score={player.score} key={player.id}/>
-        })}
+  getInitialState: function(){
+    return {
+      players: this.props.initialPlayers,
+    };
+  },
+
+
+
+  render: function(){
+    return (
+      //react doesnt use 'class' but 'className' -> class is reserved in JS for making new classes
+      <div className="scoreboard">
+       {/*Insearting extracted header component*/}
+        <Header title={this.props.title}/>
+        <div className="players">
+          {this.state.players.map(function(player){
+            return <Player name={player.name} score={player.score} key={player.id}/>
+          })}
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
+})
 
-//propTypes let you strongly type properties that can apply to a component. Will show an error in the console.
-//Acts as an error handling 
-//should fill out for each component
-Application.propTypes = {
-  title: React.PropTypes.string,
-  players: React.PropTypes.arrayOf(React.PropTypes.shape({
-    name: React.PropTypes.string.isRequired,
-    score: React.PropTypes.number.isRequired,
-    id: React.PropTypes.number.isRequired
-  })).isRequired,
-};
-
-//this can be a set as defult props to be set before user interaction
-Application.defaultProps = {
-  title: "Scoreboard"
-}
-
-ReactDOM.render(<Application players={PLAYERS}/>, document.getElementById('container'));
+ReactDOM.render(<Application initialPlayers={PLAYERS}/>, document.getElementById('container'));
 
 
 
