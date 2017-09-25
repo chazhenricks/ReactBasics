@@ -37,8 +37,12 @@ Header.defaultProps = {
 
 var Counter = React.createClass({
   //When using component class - easier to define propTypes inside the class itself
-  propTypes: {
-    score: React.PropTypes.number.isRequired
+  propTypes: {},
+
+  getInitialState: function(){
+    return{
+      score: 0,
+    }
   },
   render: function(){
     return(
@@ -47,7 +51,7 @@ var Counter = React.createClass({
         {/*When inside a compoent class - props is a method of the component class
         because of this, we need to use this.props to indicate that we are using props that are assign to 
         this specific component class*/}
-        <div className="counter-score"> {this.props.score} </div>
+        <div className="counter-score"> {this.state.score} </div>
         <button className="counter-action increment">+</button>          
       </div>
     );
@@ -61,7 +65,7 @@ function Player(props){
     <div className="player">
       <div className="player-name">{props.name}</div>
       <div className="player-score">
-        <Counter score={props.score} />
+        <Counter />
       </div>
   </div>
   );
