@@ -1,45 +1,69 @@
 //components start with a Capital Letter
+
+function Header(props){
+  return (
+    <div className="header">
+      {/* whatever is passed as "title="whatever"" where application is called will show up here */}
+      <h1>{props.title}</h1>
+    </div>
+  );
+}
+Header.propTypes = {
+  title: React.PropTypes.string.isRequired
+};
+
+//this can be a set as defult props to be set before user interaction
+Header.defaultProps = {
+  title: "Scoreboard"
+}
+
+function Counter(props){
+  return(
+    <div className="counter">
+      <button className="counter-action decrement">-</button>
+      <div className="counter-score"> {props.score} </div>
+      <button className="counter-action increment">+</button>          
+    </div>
+  );
+}
+
+
+Counter.propTypes = {
+  score: React.PropTypes.number.isRequired
+}
+
+
+function Player(props){
+  return (
+    <div className="player">
+      <div className="player-name">{props.name}</div>
+      <div className="player-score">
+        <Counter score={props.score} />
+      </div>
+  </div>
+  );
+}
+
+Player.propTypes = {
+  name: React.PropTypes.string.isRequired,
+  score: React.PropTypes.number.isRequired
+}
+
+
+
+
 //passing in 'props' lets us use whatever is passed in as an argument later on as an expression
 function Application(props){
   return (
          //react doesnt use 'class' but 'className' -> class is reserved in JS for making new classes
     <div className="scoreboard">
-      <div className="header">
-          {/* whatevr is passed as "title="whatever"" where application is called will show up here */}
-        <h1>{props.title}</h1>
-      </div>
+      {/*Insearting extracted header component*/}
+      <Header title={props.title}/>
 
       <div className="players">
-        <div className="player">Chaz Henricks</div>
-        <div className="player-score">
-          <div className="counter">
-            <button className="counter-action decrement">-</button>
-            <div className="counter-score"> 100 </div>
-            <button className="counter-action increment">+</button>          
-          </div>
-        </div>
-      </div>
-
-      <div className="players">
-        <div className="player">Eliza Meeks</div>
-        <div className="player-score">
-          <div className="counter">
-            <button className="counter-action decrement">-</button>
-            <div className="counter-score"> 100 </div>
-            <button className="counter-action increment">+</button>          
-          </div>
-        </div>
-      </div>
-
-      <div className="players">
-        <div className="player">Matt Augsburger</div>
-        <div className="player-score">
-          <div className="counter">
-            <button className="counter-action decrement">-</button>
-            <div className="counter-score"> 100 </div>
-            <button className="counter-action increment">+</button>          
-          </div>
-        </div>
+        <Player name="Chaz Henricks" score={100} />  
+        <Player name="Eliza Meeks" score={20} />
+        <Player name="Matt Augsburger" score={56}/>
       </div>
 
     </div>
