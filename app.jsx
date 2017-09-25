@@ -46,8 +46,19 @@ function Application(props){
   );
 }
 
+//propTypes let you strongly type properties that can apply to a component. Will show an error in the console.
+//Acts as an error handling 
+//should fill out for each component
+Application.propTypes = {
+  title: React.PropTypes.string
+};
 
-ReactDOM.render(<Application title="My Scoreboard"/>, document.getElementById('container'));
+//this can be a set as defult props to be set before user interaction
+Application.defaultProps = {
+  title: "Scoreboard"
+}
+
+ReactDOM.render(<Application />, document.getElementById('container'));
 
 
 
