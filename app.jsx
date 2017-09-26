@@ -18,6 +18,21 @@ var PLAYERS = [
 
 var nextID = 4;
 
+var Stopwatch = React.createClass({
+  render: function(){
+    return (
+      <div className="stopwatch">
+        <h2>Stopwatch</h2>
+        <div className="stopwatch-time">0</div>
+        <button>Start</button>
+        <button>Reset</button>
+      </div>
+    );
+  }
+});
+
+
+
 var AddPlayerForm = React.createClass({
 
   propTypes: {
@@ -89,6 +104,7 @@ function Header(props){
       <Stats players={props.players}/>
       {/* whatever is passed as "title="whatever"" where application is called will show up here */}
       <h1>{props.title}</h1>
+      <Stopwatch />
     </div>
   );
 }
